@@ -1,0 +1,93 @@
+
+var pos, button;
+
+var uF, dF, mk;
+
+var uFCheck, dFCheck, mkCheck;
+
+var uFImg;
+
+var dFImg;
+
+var mkImg;
+
+function setup() {
+    initializeFields();
+    fullScreen(P2D);
+    // size(1280, 720);
+    // (1440,900)16:10
+    background(color(0x00, 0x00, 0x00));
+    frameRate(30);
+    noCursor();
+    loadNextImg();
+}
+
+function draw() {
+    // 上臉
+    image(uFImg, 0, height * 0.05, width, height * 0.45);
+    // 下臉
+    image(dFImg, 0, height / 2, width, height * 0.45);
+    // 口罩
+    image(mkImg, 0 - pos, height * 0.41, width, height * 0.6 * 0.9);
+    if (button == 1)
+        pos += 40;
+    if (pos >= width) {
+        button = 0;
+    }
+}
+
+function keyReleased() {
+    if (key == 'q' || key == 'Q') {
+        button = 1;
+    }
+    if (key == ' ') {
+        loadNextImg();
+    }
+}
+
+function loadNextImg() {
+    // array
+    uFCheck = uF;
+    dFCheck = dF;
+    mkCheck = mk;
+    while (uF == uFCheck) {
+        uF = "uF/" + int(random(1, 6)) + ".png";
+    }
+    while (dF == dFCheck) {
+        dF = "dF/" + int(random(1, 6)) + ".png";
+    }
+    while (mk == mkCheck) {
+        mk = "mask/" + int(random(1, 6)) + ".png";
+    }
+    uFImg = loadImage(uF);
+    dFImg = loadImage(dF);
+    mkImg = loadImage(mk);
+    print(uF);
+    print(dF);
+    print(mk);
+    pos = 0;
+}
+
+function initializeFields() {
+    pos = 0;
+    button = 0;
+    uF = null;
+    dF = null;
+    mk = null;
+    uFCheck = null;
+    dFCheck = null;
+    mkCheck = null;
+    uFImg = null;
+    dFImg = null;
+    mkImg = null;
+}
+
+function preload() {
+// TODO: put method calls that load from files into this method
+// I found the following calls that you should move here:
+// - on line 48: uFImg = loadImage(uF)
+// - on line 49: dFImg = loadImage(dF)
+// - on line 50: mkImg = loadImage(mk)
+// (note that line numbers are from your Processing code)
+}
+
